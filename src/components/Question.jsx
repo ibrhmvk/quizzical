@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Answer from './Answer'
 
 
-function Question({ question,question_number, incorrectAnswers, correctAnswer  }) {
+function Question({ question,question_number, incorrectAnswers,setSelected,selectedOptions,isChecking, correctAnswer  }) {
 
     const [answers, setAnswers] = useState([]);
-    const [selectedAnswer, setSelectedAnswer] = useState(null)
 
     useEffect(() => {
         const newAnswers = [...incorrectAnswers];
@@ -16,11 +15,15 @@ function Question({ question,question_number, incorrectAnswers, correctAnswer  }
 
 
     const selectAnswer=(i)=>{
-     setSelectedAnswer(i)
+        let obj = {
+            index:question_number,
+            selected: i
+        }
+        setSelected(obj)
     }
 
     const answersElements = answers.map((item, index) => {
-        return <Answer key={item}  answer={item} question_index={question_number}  selectAnswer={selectAnswer}/>
+        return <Answer key={item}  id={item} answer={item} question_index={question_number} selectedOptions={selectedOptions} isChecking={isChecking} correctAnswer={correctAnswer}  selectAnswer={selectAnswer}/>
     })
     
     return (

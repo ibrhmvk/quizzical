@@ -12,6 +12,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quizStarted, setQuizStarted] = useState(false)
+  const [selectedOptions, setSelectedOptions] = useState([])
+  const [Ischecking, setsetIschecking] = useState(false)
+
+  
 
   useEffect(() => {
     const getData = async () => {
@@ -37,17 +41,36 @@ function App() {
     getData()
 
   }, [])
-  console.log(data)
 
- 
+  useEffect(()=>{
+console.log(selectedOptions,'options')
+  },[selectedOptions])
+
+  const setSelected = (obj) => {
+    //if selected options in value
+    let index = selectedOptions.findIndex(e => e.index == obj.index)
+    if (index > -1) {
+      console.log('already selected for question',obj)
+      let arr =  selectedOptions.splice(index,0,obj)
+      console.table(arr,'arr')
+      setSelectedOptions(arr)
+    } else {
+      console.log('new selected')
+
+      setSelectedOptions(prev => [...prev,obj])
+    }
+  }
 
   const QuestionElement = data && data.map((item, index) => {
     return <Question key={index}
-    question_number={index}
+      question_number={index}
       question={item.question}
       incorrectAnswers={item.incorrect_answers}
       correctAnswer={item.correct_answer}
-       />
+      setSelected={setSelected}
+      selectedOptions={selectedOptions}
+      isChecking={Ischecking}
+    />
   })
 
   return (
@@ -67,7 +90,7 @@ function App() {
       {!quizStarted ? <Start startQuiz={() => setQuizStarted(prevState => !prevState)} /> :
         <div className='flex flex-col justify-between items-start h-screen ml-52 py-20 px-32'>
           {QuestionElement}
-          <Button value="Check answers" />
+          <Button value="Check answers" onClick={()=>setIschecking(true)} />
         </div>}
       <div className="absolute top-0 right-0">
         <BlobTop />
