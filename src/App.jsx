@@ -13,7 +13,7 @@ function App() {
   const [error, setError] = useState(null);
   const [quizStarted, setQuizStarted] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState([])
-  const [Ischecking, setsetIschecking] = useState(false)
+  const [isChecking, setIsChecking] = useState(false)
 
   
 
@@ -69,7 +69,7 @@ console.log(selectedOptions,'options')
       correctAnswer={item.correct_answer}
       setSelected={setSelected}
       selectedOptions={selectedOptions}
-      isChecking={Ischecking}
+      isChecking={isChecking}
     />
   })
 
@@ -90,7 +90,12 @@ console.log(selectedOptions,'options')
       {!quizStarted ? <Start startQuiz={() => setQuizStarted(prevState => !prevState)} /> :
         <div className='flex flex-col justify-between items-start h-screen ml-52 py-20 px-32'>
           {QuestionElement}
-          <Button value="Check answers" onClick={()=>setIschecking(true)} />
+          <button onClick={()=>{
+            console.log('asdas')
+            setIsChecking(true)}}>Check ans</button>
+          {/* <Button value="Check answers" onClick={()=>{
+            console.log('asdas')
+            setIsChecking(true)}} /> */}
         </div>}
       <div className="absolute top-0 right-0">
         <BlobTop />
