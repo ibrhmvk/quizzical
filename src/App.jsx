@@ -93,7 +93,9 @@ console.log(selectedOptions,'options')
           {QuestionElement}
           <Button value="Check answers"  onPress={()=>{
             console.log('asdas')
-            setIsChecking(true)}} />
+            setIsChecking(true)}}
+            disabled={selectedOptions.length === data.length ? false:true}
+            />
         </div>}
       <div className="absolute top-0 right-0">
         <BlobTop />
