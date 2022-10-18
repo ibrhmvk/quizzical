@@ -51,7 +51,8 @@ console.log(selectedOptions,'options')
     let index = selectedOptions.findIndex(e => e.index == obj.index)
     if (index > -1) {
       console.log('already selected for question',obj)
-      let arr =  selectedOptions.splice(index,0,obj)
+      let arr =  [...selectedOptions]
+      arr.splice(index,1,obj)
       console.table(arr,'arr')
       setSelectedOptions(arr)
     } else {
@@ -90,12 +91,9 @@ console.log(selectedOptions,'options')
       {!quizStarted ? <Start startQuiz={() => setQuizStarted(prevState => !prevState)} /> :
         <div className='flex flex-col justify-between items-start h-screen ml-52 py-20 px-32'>
           {QuestionElement}
-          <button onClick={()=>{
+          <Button value="Check answers"  onPress={()=>{
             console.log('asdas')
-            setIsChecking(true)}}>Check ans</button>
-          {/* <Button value="Check answers" onClick={()=>{
-            console.log('asdas')
-            setIsChecking(true)}} /> */}
+            setIsChecking(true)}} />
         </div>}
       <div className="absolute top-0 right-0">
         <BlobTop />
